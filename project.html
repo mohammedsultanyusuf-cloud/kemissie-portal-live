@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kemissie Secondary and Preparatory School</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        #chat-widget { transition: all 0.3s ease-in-out; transform: translateY(120%); opacity: 0; }
+        #chat-widget.show { transform: translateY(0); opacity: 1; }
+        .chat-bubble-user { background-color: #2563eb; color: white; border-radius: 15px 15px 0 15px; padding: 8px 12px; margin-bottom: 8px; align-self: flex-end; max-width: 80%; }
+        .chat-bubble-ai { background-color: #e5e7eb; color: #1f2937; border-radius: 15px 15px 15px 0; padding: 8px 12px; margin-bottom: 8px; align-self: flex-start; max-width: 80%; }
+        .gallery-img { transition: transform 0.3s ease; }
+        .gallery-img:hover { transform: scale(1.05); }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <header class="bg-blue-800 text-white shadow-lg sticky top-0 z-40">
+        <div class="container mx-auto px-4 py-4 flex flex-wrap justify-between items-center">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="showSection('home-container')">
+                <i class="fas fa-school text-3xl text-yellow-400"></i>
+                <h1 class="text-xl md:text-2xl font-bold tracking-wide" data-key="schoolName">Kemissie Secondary School</h1>
+            </div>
+            <nav class="hidden md:flex space-x-6 mt-4 md:mt-0 text-sm font-semibold">
+                <a href="#" onclick="showSection('home-container')" class="hover:text-yellow-400 transition" data-key="navHome">Home</a>
+                <a href="#" onclick="showSection('about-container')" class="hover:text-yellow-400 transition" data-key="navAbout">About Us</a>
+                <a href="#" onclick="showSection('history-container')" class="hover:text-yellow-400 transition" data-key="navHistory">History</a>
+                <a href="#" onclick="showSection('academics-container')" class="hover:text-yellow-400 transition" data-key="navAcademics">Academics</a>
+                <a href="#" onclick="showSection('gallery-container')" class="hover:text-yellow-400 transition" data-key="navGallery">Gallery</a>
+                <a href="#" onclick="showSection('portal-container')" class="hover:text-yellow-400 transition text-yellow-300" data-key="navPortal">Portal</a>
+            </nav>
+            <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                <button onclick="showSection('admin-login-container')" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm font-bold transition shadow-md">
+                    <i class="fas fa-user-shield mr-1"></i> Admin
+                </button>
+                <select id="lang-switcher" onchange="changeLanguage()" class="bg-white text-blue-900 border border-gray-300 rounded px-2 py-1 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    <option value="am">አማርኛ</option>
+                    <option value="en" selected>English</option>
+                    <option value="om">Afaan Oromoo</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-8 flex flex-col items-center">
+
+        <!-- Home -->
+        <div id="home-container" class="w-full flex flex-col items-center text-center fade-in">
+            <div class="bg-blue-50 w-full rounded-2xl p-10 md:p-20 shadow-inner border border-blue-100 mb-8">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-blue-900 mb-6" data-key="welcomeTitle">Welcome to Kemissie Secondary and Preparatory School</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto mb-8" data-key="welcomeDesc">Empowering the next generation through quality education. Serving grades 9 through 12 with excellence and dedication.</p>
+                <button onclick="showSection('portal-container')" class="bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105" data-key="btnGoToPortal">Access Student Portal</button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
+                <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-blue-600">
+                    <i class="fas fa-book-open text-4xl text-blue-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2" data-key="card1Title">Quality Education</h3>
+                    <p class="text-gray-600" data-key="card1Desc">Comprehensive curriculum tailored to prepare students for university and beyond.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-yellow-500">
+                    <i class="fas fa-users text-4xl text-yellow-500 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2" data-key="card2Title">Expert Teachers</h3>
+                    <p class="text-gray-600" data-key="card2Desc">Dedicated and highly qualified staff committed to student success.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-green-500">
+                    <i class="fas fa-flask text-4xl text-green-500 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2" data-key="card3Title">Modern Facilities</h3>
+                    <p class="text-gray-600" data-key="card3Desc">Well-equipped science labs, libraries, and ICT centers for practical learning.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- About -->
+        <div id="about-container" class="hidden w-full max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-xl shadow-lg fade-in">
+            <h2 class="text-3xl font-bold text-blue-900 mb-6 border-b-2 border-yellow-400 pb-2 inline-block" data-key="aboutTitle">About Our School</h2>
+            <p class="text-gray-700 mb-4 leading-relaxed" data-key="aboutP1">Kemissie Secondary and Preparatory School is located in the heart of Kemissie town, Oromia Zone, Amhara Region. We are dedicated to nurturing young minds and building future leaders.</p>
+            <p class="text-gray-700 mb-6 leading-relaxed" data-key="aboutP2">Our mission is to provide an inclusive, innovative, and safe learning environment where every student can achieve their full potential academically, socially, and emotionally.</p>
+            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-600">
+                <h4 class="font-bold text-blue-800 mb-2" data-key="visionTitle">Our Vision</h4>
+                <p class="text-gray-700 italic" data-key="visionDesc">"To be a center of academic excellence producing ethical, competent, and responsible citizens."</p>
+            </div>
+        </div>
+
+        <!-- History -->
+        <div id="history-container" class="hidden w-full max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-xl shadow-lg fade-in">
+            <h2 class="text-3xl font-bold text-blue-900 mb-6 border-b-2 border-yellow-400 pb-2 inline-block" data-key="historyTitle">School History</h2>
+            <div class="flex flex-col md:flex-row gap-6 items-center mb-6">
+                <img src="https://placehold.co/400x300/2563eb/ffffff?text=Old+School+Building" alt="Old School Building" class="rounded-lg shadow-md w-full md:w-1/2 object-cover">
+                <div class="w-full md:w-1/2">
+                    <p class="text-gray-700 leading-relaxed" data-key="historyP1">Established decades ago, Kemissie Secondary School has long been a beacon of knowledge in the region. Starting with just a few classrooms and teachers, it has grown exponentially to accommodate thousands of students from Kemissie and surrounding areas.</p>
+                </div>
+            </div>
+            <p class="text-gray-700 leading-relaxed mb-4" data-key="historyP2">Throughout its history, the school has produced notable alumni who have gone on to contribute significantly in various sectors including healthcare, engineering, and leadership.</p>
+        </div>
+
+        <!-- Academics -->
+        <div id="academics-container" class="hidden w-full max-w-5xl mx-auto fade-in">
+            <h2 class="text-3xl font-bold text-blue-900 mb-8 text-center" data-key="academicsTitle">Academic Programs</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+                    <h3 class="text-2xl font-bold text-blue-800 mb-4">Secondary (Grade 9 & 10)</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>Mathematics</li>
+                        <li>General Science (Physics, Chemistry, Biology)</li>
+                        <li>Social Studies (History, Geography)</li>
+                        <li>Languages (Amharic, English, Afaan Oromoo)</li>
+                        <li>Information Technology</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+                    <h3 class="text-2xl font-bold text-green-800 mb-4">Preparatory (Grade 11 & 12)</h3>
+                    <p class="text-gray-600 mb-4 text-sm font-semibold">Specialized tracks for University Preparation:</p>
+                    <div class="space-y-4">
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-green-900">Natural Science Stream</h4>
+                            <p class="text-sm text-gray-700">Advanced Mathematics, Physics, Chemistry, Biology</p>
+                        </div>
+                        <div class="bg-yellow-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-yellow-900">Social Science Stream</h4>
+                            <p class="text-sm text-gray-700">Advanced Geography, History, Economics, Business</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gallery -->
+        <div id="gallery-container" class="hidden w-full max-w-6xl mx-auto fade-in">
+            <h2 class="text-3xl font-bold text-blue-900 mb-8 text-center" data-key="galleryTitle">Photo Gallery</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="overflow-hidden rounded-xl shadow-lg cursor-pointer"><img src="https://placehold.co/600x400/2563eb/ffffff?text=Main+Gate" alt="Main Gate" class="w-full h-48 object-cover gallery-img"></div>
+                <div class="overflow-hidden rounded-xl shadow-lg cursor-pointer"><img src="https://placehold.co/600x400/16a34a/ffffff?text=Science+Lab" alt="Science Lab" class="w-full h-48 object-cover gallery-img"></div>
+                <div class="overflow-hidden rounded-xl shadow-lg cursor-pointer"><img src="https://placehold.co/600x400/ca8a04/ffffff?text=Library" alt="Library" class="w-full h-48 object-cover gallery-img"></div>
+                <div class="overflow-hidden rounded-xl shadow-lg cursor-pointer"><img src="https://placehold.co/600x400/475569/ffffff?text=Computer+Center" alt="Computer Center" class="w-full h-48 object-cover gallery-img"></div>
+                <div class="overflow-hidden rounded-xl shadow-lg cursor-pointer"><img src="https://placehold.co/600x400/9333ea/ffffff?text=Graduation+Day" alt="Graduation Day" class="w-full h-48 object-cover gallery-img"></div>
+                <div class="overflow-hidden rounded-xl shadow-lg cursor-pointer"><img src="https://placehold.co/600x400/dc2626/ffffff?text=Sports+Field" alt="Sports Field" class="w-full h-48 object-cover gallery-img"></div>
+            </div>
+        </div>
+
+        <!-- Student Portal -->
+        <div id="portal-container" class="hidden w-full flex-col items-center justify-center fade-in">
+            <div class="w-full max-w-md"><p id="portal-msg-box" class="hidden text-sm mt-2 font-medium p-2 rounded"></p></div>
+            <div id="login-section" class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md border border-gray-100">
+                <div class="text-center mb-6">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-user-graduate text-3xl text-blue-600"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800" data-key="loginTitle">Student Portal Login</h2>
+                    <p class="text-gray-500 text-sm mt-1" data-key="loginSub">Enter your credentials to view grades.</p>
+                </div>
+                <form id="login-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1" data-key="studentId">Student ID</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><i class="fas fa-id-card text-gray-400"></i></div>
+                            <input type="text" id="student-id" required class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm" placeholder="KEM123">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1" data-key="password">Password</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><i class="fas fa-lock text-gray-400"></i></div>
+                            <input type="password" id="password" required class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm" placeholder="••••">
+                        </div>
+                    </div>
+                    <div id="error-msg" class="hidden text-red-500 text-sm font-medium bg-red-50 p-2 rounded border border-red-200" data-key="loginError">Invalid ID or Password!</div>
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow transition duration-200" data-key="btnLogin">Login</button>
+                </form>
+            </div>
+
+            <div id="dashboard-section" class="hidden w-full max-w-4xl bg-white p-8 rounded-xl shadow-2xl border border-gray-100 mt-8">
+                <div class="flex flex-wrap justify-between items-center mb-6 border-b pb-4 gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800" data-key="dashboardTitle">Student Dashboard</h2>
+                        <p class="text-gray-600 mt-1"><span data-key="welcomeUser">Welcome,</span> <span id="display-name" class="font-bold text-blue-600"></span> (<span id="display-id"></span>)</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <select id="student-semester" class="bg-blue-50 border border-blue-200 text-blue-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2">
+                            <option value="1" data-key="sem1">Semester 1</option>
+                            <option value="2" data-key="sem2">Semester 2</option>
+                        </select>
+                        <button id="btn-logout" class="bg-red-100 text-red-600 hover:bg-red-200 px-4 py-2 rounded-lg font-bold transition flex items-center">
+                            <i class="fas fa-sign-out-alt mr-2"></i> <span data-key="btnLogout">Logout</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="overflow-x-auto rounded-lg border border-gray-200">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-blue-50 text-blue-900 border-b border-gray-200">
+                                <th class="py-3 px-4 font-bold" data-key="thSubject">Subject</th>
+                                <th class="py-3 px-4 font-bold" data-key="thMidterm">Midterm (40%)</th>
+                                <th class="py-3 px-4 font-bold" data-key="thFinal">Final (60%)</th>
+                                <th class="py-3 px-4 font-bold" data-key="thTotal">Total (100%)</th>
+                                <th class="py-3 px-4 font-bold" data-key="thStatus">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="grades-tbody" class="text-gray-700"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Login -->
+        <div id="admin-login-container" class="hidden w-full flex-col items-center justify-center fade-in py-10">
+            <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md border border-gray-100">
+                <div class="text-center mb-6">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-user-shield text-3xl text-green-600"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800" data-key="adminAuthTitle">Admin Authentication</h2>
+                    <p class="text-gray-500 text-sm mt-1" data-key="adminAuthSub">Enter admin password to access portal.</p>
+                </div>
+                <form id="admin-login-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1" data-key="password">Password</label>
+                        <input type="password" id="admin-password" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500" placeholder="••••">
+                    </div>
+                    <div id="admin-error-msg" class="hidden text-red-500 text-sm font-medium bg-red-50 p-2 rounded border border-red-200" data-key="adminError">Invalid Admin Password!</div>
+                    <p id="admin-login-msg-box" class="hidden text-sm mt-2 font-medium p-2 rounded"></p>
+                    <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow transition duration-200" data-key="btnLogin">Login</button>
+                </form>
+                <p class="text-xs text-gray-400 mt-4 text-center"><span class="font-bold"></span></p>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div id="admin-container" class="hidden w-full flex-col items-center justify-start py-10 fade-in">
+            <div class="w-full max-w-5xl flex justify-between items-center mb-8 px-4">
+                <h2 class="text-3xl font-bold text-green-800" data-key="adminTitle">Teacher / Admin Portal</h2>
+                <button onclick="logoutAdmin()" class="bg-red-100 text-red-600 hover:bg-red-200 px-4 py-2 rounded-lg font-bold transition flex items-center">
+                    <i class="fas fa-sign-out-alt mr-2"></i> <span data-key="btnLogout">Logout</span>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl px-4">
+                <div class="bg-white p-8 rounded-lg shadow-lg border-t-4 border-blue-600">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4 border-b pb-2" data-key="adminRegTitle">Register New Student</h3>
+                    <form id="register-student-form" class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="col-span-2 sm:col-span-1">
+                                <label class="block text-sm font-medium text-gray-700 mb-1" data-key="regFirstName">First Name</label>
+                                <input type="text" id="reg-fname" required class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div class="col-span-2 sm:col-span-1">
+                                <label class="block text-sm font-medium text-gray-700 mb-1" data-key="regLastName">Last Name</label>
+                                <input type="text" id="reg-lname" required class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div class="col-span-2 sm:col-span-1">
+                                <label class="block text-sm font-medium text-gray-700 mb-1" data-key="studentId">Student ID</label>
+                                <div class="flex">
+                                    <input type="text" id="reg-id" required class="w-full px-4 py-2 border border-gray-300 rounded-l focus:ring-blue-500 focus:border-blue-500 bg-gray-50" readonly placeholder="Auto">
+                                    <button type="button" id="btn-generate-id" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-r transition" title="Generate ID">↺</button>
+                                </div>
+                            </div>
+                            <div class="col-span-2 sm:col-span-1">
+                                <label class="block text-sm font-medium text-gray-700 mb-1" data-key="password">Password</label>
+                                <input type="text" id="reg-password" required class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500 bg-gray-50" readonly placeholder="Auto">
+                            </div>
+                        </div>
+                        <p id="reg-msg-box" class="hidden text-sm mt-2 font-medium p-2 rounded"></p>
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition" data-key="btnRegisterStudent">Register Student</button>
+                    </form>
+                </div>
+
+                <div class="bg-white p-8 rounded-lg shadow-lg border-t-4 border-green-600">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4 border-b pb-2" data-key="addGradeTitle">Add / Edit Student Grade</h3>
+                    <form id="add-grade-form" class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="col-span-2 sm:col-span-1">
+                                <label class="block text-sm font-medium text-gray-700 mb-1" data-key="studentId">Student ID</label>
+                                <input type="text" id="admin-student-id" required class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-green-500 focus:border-green-500 uppercase" placeholder="KEM123">
+                            </div>
+                            <div class="col-span-2 sm:col-span-1">
+                                <label class="block text-sm font-medium text-gray-700 mb-1" data-key="semesterLabel">Semester</label>
+                                <select id="admin-semester" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-green-500 focus:border-green-500">
+                                    <option value="1">Semester 1</option>
+                                    <option value="2">Semester 2</option>
+                                </select>
+                            </div>
+                            <div class="col-span-2 flex space-x-2">
+                                <select id="admin-track" onchange="updateBulkSubjects()" class="flex-grow px-4 py-2 border border-gray-300 rounded focus:ring-green-500 focus:border-green-500">
+                                    <option value="9-10" data-key="track910">Grade 9-10 (General)</option>
+                                    <option value="11-12-nat" data-key="track1112Nat">Grade 11-12 (Natural Science)</option>
+                                    <option value="11-12-soc" data-key="track1112Soc">Grade 11-12 (Social Science)</option>
+                                </select>
+                                <button type="button" id="btn-fetch-grades" class="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded transition" data-key="btnFetch">Fetch</button>
+                            </div>
+                            <div class="col-span-2 overflow-x-auto max-h-60 overflow-y-auto border border-gray-100 rounded">
+                                <table class="w-full text-left text-sm">
+                                    <thead class="sticky top-0 bg-white">
+                                        <tr class="bg-gray-50 border-b">
+                                            <th class="py-2 px-2" data-key="thSubject">Subject</th>
+                                            <th class="py-2 px-2" data-key="thMidMax">Mid (40)</th>
+                                            <th class="py-2 px-2" data-key="thFinMax">Final (60)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="bulk-subjects-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <p id="grade-msg-box" class="hidden text-sm mt-2 font-medium p-2 rounded"></p>
+                        <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition" data-key="btnSubmitGrade">Submit Grade</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="mt-8 w-full max-w-5xl px-4">
+                <div class="bg-white p-8 rounded-lg shadow-lg border-t-4 border-gray-600">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4 border-b pb-2" data-key="adminStudentListTitle">Registered Students</h3>
+                    <p id="list-msg-box" class="hidden text-sm mb-3 font-medium p-2 rounded"></p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50 border-b">
+                                    <th class="py-2 px-4 font-bold text-sm text-gray-700" data-key="thName">Name</th>
+                                    <th class="py-2 px-4 font-bold text-sm text-gray-700" data-key="thId">Student ID</th>
+                                    <th class="py-2 px-4 font-bold text-sm text-gray-700" data-key="thPassword">Password</th>
+                                    <th class="py-2 px-4 font-bold text-sm text-gray-700" data-key="thGradesStatus">Status</th>
+                                    <th class="py-2 px-4 font-bold text-sm text-gray-700" data-key="thAction">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-student-list-body" class="text-sm text-gray-700"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backup / Restore -->
+            <div class="mt-8 w-full max-w-5xl px-4">
+                <div class="bg-white p-8 rounded-lg shadow-lg border-t-4 border-yellow-500">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-2 border-b pb-2">Backup &amp; Restore</h3>
+                    <p class="text-sm text-gray-500 mb-4">Data is stored in the school MySQL database on the server. Export a backup file to keep an extra copy, or import one to restore or move student data (old browser backups are accepted too).</p>
+                    <div class="flex flex-wrap gap-3 items-center">
+                        <button type="button" id="btn-export" class="bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-bold py-2 px-4 rounded transition"><i class="fas fa-download mr-2"></i>Export Backup</button>
+                        <button type="button" id="btn-import" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition"><i class="fas fa-upload mr-2"></i>Import Backup</button>
+                        <input type="file" id="import-file" accept="application/json,.json" class="hidden">
+                    </div>
+                    <p id="backup-msg-box" class="hidden text-sm mt-3 font-medium p-2 rounded"></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Chat Widget -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+        <div id="chat-widget" class="bg-white w-80 shadow-2xl rounded-2xl border border-gray-200 overflow-hidden mb-4 hidden flex-col h-96">
+            <div class="bg-blue-600 text-white p-4 flex justify-between items-center">
+                <div class="font-bold flex items-center"><i class="fas fa-headset mr-2"></i> <span data-key="chatTitle">Customer Service (AI)</span></div>
+                <button id="close-chat" class="text-white hover:text-gray-200"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="chat-messages" class="flex-grow p-4 overflow-y-auto flex flex-col bg-gray-50">
+                <div class="chat-bubble-ai text-sm shadow-sm" data-key="chatWelcome">Hello! I am Kemissie School Customer Service. How can I assist you today?</div>
+            </div>
+            <div class="p-3 border-t bg-white flex">
+                <input type="text" id="chat-input" class="flex-grow border border-gray-300 rounded-l-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500" placeholder="Type a message...">
+                <button id="send-chat" class="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700 transition"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <button id="chat-toggle" class="bg-blue-600 hover:bg-blue-700 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center text-2xl transition transform hover:scale-110 focus:outline-none">
+            <i class="fas fa-comment-dots"></i>
+        </button>
+    </div>
+
+    <footer class="bg-gray-900 text-gray-400 py-6 text-center text-sm">
+        <p data-key="footerText">&copy; 2026 Kemissie Secondary and Preparatory School. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+    (function () {
+        'use strict';
+
+        /* =====================================================
+           1. SERVER API LAYER  (browser -> fetch -> Node.js -> MySQL)
+           ===================================================== */
+        // Same origin when the page is served by server.js. If project.html is opened
+        // straight from disk (file://), it talks to the local server on port 3000.
+        const API_BASE = window.KEMISSIE_API_BASE || (location.protocol === 'file:' ? 'http://localhost:3000' : '');
+        let studentToken = null;   // login tokens live in memory only - nothing is stored in localStorage
+        let adminToken = null;
+
+        async function api(path, opts) {
+            const o = opts || {};
+            const headers = { 'Content-Type': 'application/json' };
+            if (o.token) headers.Authorization = 'Bearer ' + o.token;
+            let res;
+            try {
+                res = await fetch(API_BASE + path, {
+                    method: o.method || 'GET',
+                    headers: headers,
+                    body: o.body !== undefined ? JSON.stringify(o.body) : undefined
+                });
+            } catch (e) {
+                const err = new Error('Cannot reach the server. Please check that it is running.');
+                err.network = true;
+                throw err;
+            }
+            let data = null;
+            try { data = await res.json(); } catch (e) { /* empty body */ }
+            if (!res.ok) {
+                const err = new Error((data && data.error) || ('Request failed (' + res.status + ')'));
+                err.status = res.status;
+                throw err;
+            }
+            return data;
+        }
+
+        async function adminApi(path, opts) {
+            try {
+                return await api(path, Object.assign({ token: adminToken }, opts));
+            } catch (err) {
+                if (err.status === 401 && adminToken) {   // session expired
+                    adminToken = null;
+                    showSection('admin-login-container');
+                }
+                throw err;
+            }
+        }
+
+        /* =====================================================
+           2. TRANSLATIONS
+           ===================================================== */
+        const translations = {
+            en: {
+                schoolName: "Kemissie Secondary School",
+                navHome: "Home", navAbout: "About Us", navHistory: "History", navAcademics: "Academics", navGallery: "Gallery", navPortal: "Portal",
+                welcomeTitle: "Welcome to Kemissie Secondary and Preparatory School",
+                welcomeDesc: "Empowering the next generation through quality education.",
+                btnGoToPortal: "Access Student Portal",
+                card1Title: "Quality Education", card1Desc: "Comprehensive curriculum tailored to prepare students for university.",
+                card2Title: "Expert Teachers", card2Desc: "Dedicated staff committed to student success.",
+                card3Title: "Modern Facilities", card3Desc: "Well-equipped science labs, libraries, and ICT centers.",
+                aboutTitle: "About Our School", aboutP1: "Located in the heart of Kemissie town.",
+                aboutP2: "Our mission is to provide an inclusive learning environment.",
+                visionTitle: "Our Vision", visionDesc: '"To be a center of academic excellence."',
+                historyTitle: "School History", historyP1: "Established decades ago...",
+                historyP2: "The school has produced notable alumni.", academicsTitle: "Academic Programs",
+                galleryTitle: "Photo Gallery", loginTitle: "Student Portal Login", loginSub: "Enter credentials to view grades.",
+                studentId: "Student ID", password: "Password", loginError: "Invalid ID or Password!", btnLogin: "Login",
+                dashboardTitle: "Student Dashboard", welcomeUser: "Welcome,", btnLogout: "Logout",
+                thSubject: "Subject", thMidterm: "Midterm (40%)", thFinal: "Final (60%)", thTotal: "Total (100%)", thStatus: "Status",
+                footerText: "© 2026 Kemissie Secondary School. All Rights Reserved.", adminTitle: "Admin Portal",
+                addGradeTitle: "Add / Edit Student Grade", btnSubmitGrade: "Submit Grade",
+                adminRegTitle: "Register New Student", regFirstName: "First Name", regLastName: "Last Name",
+                btnRegisterStudent: "Register Student", chatTitle: "Customer Service (AI)",
+                chatWelcome: "Hello! I am Kemissie School Customer Service. How can I assist you today?",
+                adminAuthTitle: "Admin Authentication", adminAuthSub: "Enter admin password to access portal.", adminError: "Invalid Admin Password!",
+                trackLevel: "Grade Track", track910: "Grade 9-10 (General)", track1112Nat: "Grade 11-12 (Natural Science)", track1112Soc: "Grade 11-12 (Social Science)",
+                subEnglish: "English", subMathematics: "Mathematics", subPhysics: "Physics", subChemistry: "Chemistry", subBiology: "Biology",
+                subGeography: "Geography", subHistory: "History", subCitizenshipEducationCivics: "Citizenship Education (Civics)",
+                subEconomics: "Economics", subInformationTechnologyIT: "Information Technology (IT)", subHealthandPhysicalEducationHPE: "Health and Physical Education (HPE)",
+                subMotherTongueAmharic: "Mother Tongue / Amharic", subAgriculture: "Agriculture",
+                adminStudentListTitle: "Registered Students", thName: "Name", thId: "Student ID", thPassword: "Password", thGradesStatus: "Status",
+                statusGraded: "Graded", statusNoGrades: "No Grades", semesterLabel: "Semester", btnFetch: "Fetch", thMidMax: "Mid (40)", thFinMax: "Final (60)",
+                sem1: "Semester 1 (1ኛ መንፈቀ-ዓመት)", sem2: "Semester 2 (2ኛ መንፈቀ-ዓመት)",
+                pass: "Pass", fail: "Fail"
+            },
+            am: {
+                schoolName: "ከሚሴ ሁለተኛ ደረጃ ት/ቤት",
+                navHome: "ዋና ገጽ", navAbout: "ስለ እኛ", navHistory: "ታሪክ", navAcademics: "ትምህርት", navGallery: "ማዕከለ-ስዕላት", navPortal: "ፖርታል",
+                welcomeTitle: "እንኳን ወደ ከሚሴ ሁለተኛ ደረጃ ትምህርት ቤት በደህና መጡ",
+                welcomeDesc: "ቀጣዩን ትውልድ በጥራት ትምህርት ማብቃት። ከ9ኛ እስከ 12ኛ ክፍል ጥራት ያለው ትምህርት እንሰጣለን።",
+                btnGoToPortal: "የተማሪ ፖርታል ይግቡ",
+                card1Title: "ጥራት ያለው ትምህርት", card1Desc: "ተማሪዎችን ለዩኒቨርሲቲ ለማዘጋጀት የተቃኘ ሰርአተ ትምህርት።",
+                card2Title: "ምርጥ መምህራን", card2Desc: "ለተማሪዎች ስኬት የተጉ መምህራን።",
+                card3Title: "ዘመናዊ ማዕከላት", card3Desc: "የተሟሉ ቤተ-ሙከራዎች፣ ቤተ-መጻሕፍት እና የኮምፒውተር ክፍሎች።",
+                aboutTitle: "ስለ ትምህርት ቤታችን", aboutP1: "ከሚሴ ሁለተኛ ደረጃ ት/ቤት በአማራ ክልል ይገኛል።",
+                aboutP2: "ተልእኳችን ምቹ የመማሪያ አካባቢ መፍጠር ነው።",
+                visionTitle: "ራዕያችን", visionDesc: '"የልህቀት ማዕከል መሆን።"',
+                historyTitle: "የትምህርት ቤቱ ታሪክ", historyP1: "ከአስርተ አመታት በፊት የተመሰረተ...",
+                historyP2: "በርካታ ታዋቂ ምሩቃንን አፍርቷል።", academicsTitle: "የትምህርት ፕሮግራሞች",
+                galleryTitle: "የፎቶ ማዕከለ-ስዕላት", loginTitle: "የተማሪ መግቢያ", loginSub: "ውጤትዎን ለማየት መታወቂያ እና ፓስወርድ ያስገቡ።",
+                studentId: "መታወቂያ (ID)", password: "የይለፍ ቃል (Password)", loginError: "የተሳሳተ መታወቂያ ወይም የይለፍ ቃል!", btnLogin: "ግባ",
+                dashboardTitle: "የተማሪ ውጤት ማሳያ", welcomeUser: "እንኳን ደህና መጣህ/ሽ፣", btnLogout: "ውጣ (Logout)",
+                thSubject: "የትምህርት አይነት", thMidterm: "መንፈቀ ዓመት (40%)", thFinal: "ማጠቃለያ (60%)", thTotal: "ድምር (100%)", thStatus: "ሁኔታ",
+                footerText: "© 2026 ከሚሴ ሁለተኛ ደረጃ ትምህርት ቤት።", adminTitle: "የአስተዳደር ፖርታል",
+                addGradeTitle: "የተማሪ ውጤት መመዝገቢያ / ማስተካከያ", btnSubmitGrade: "ውጤት መዝግብ",
+                adminRegTitle: "አዲስ ተማሪ መመዝገቢያ", regFirstName: "ስም", regLastName: "የአባት ስም",
+                btnRegisterStudent: "ተማሪውን መዝግብ", chatTitle: "የደንበኞች አገልግሎት (Customer Service)",
+                chatWelcome: "ሰላም! የከሚሴ ትምህርት ቤት የደንበኞች አገልግሎት ረዳት ነኝ። ዛሬ እንዴት ልረዳዎት?",
+                adminAuthTitle: "የአስተዳዳሪ መግቢያ", adminAuthSub: "ወደ አስተዳዳሪ ገጽ ለመግባት ፓስወርድ ያስገቡ።", adminError: "የተሳሳተ ፓስወርድ!",
+                trackLevel: "የክፍል ደረጃ", track910: "9-10 ክፍል", track1112Nat: "11-12 (የተፈጥሮ ሳይንስ)", track1112Soc: "11-12 (ማህበራዊ ሳይንስ)",
+                subEnglish: "እንግሊዝኛ", subMathematics: "ሂሳብ", subPhysics: "ፊዚክስ", subChemistry: "ኬሚስትሪ", subBiology: "ባዮሎጂ",
+                subGeography: "ጂኦግራፊ", subHistory: "ታሪክ", subCitizenshipEducationCivics: "የዜግነት ትምህርት",
+                subEconomics: "ኢኮኖሚክስ", subInformationTechnologyIT: "ኢንፎርሜሽን ቴክኖሎጂ", subHealthandPhysicalEducationHPE: "ጤናና አካላዊ ትምህርት",
+                subMotherTongueAmharic: "አማርኛ", subAgriculture: "ግብርና",
+                adminStudentListTitle: "የተመዘገቡ ተማሪዎች", thName: "ስም", thId: "መታወቂያ", thPassword: "ፓስወርድ", thGradesStatus: "ሁኔታ",
+                statusGraded: "ተሞልቷል", statusNoGrades: "አልተሞላም", semesterLabel: "ሴሚስተር", btnFetch: "አምጣ (Fetch)", thMidMax: "ሚድ (40)", thFinMax: "ፋይናል (60)",
+                sem1: "1ኛ መንፈቀ-ዓመት", sem2: "2ኛ መንፈቀ-ዓመት",
+                pass: "አልፏል", fail: "ወድቋል"
+            },
+            om: {
+                schoolName: "Mana Barumsaa Sad. Lammaffaa Kormisee",
+                navHome: "Mana", navAbout: "Waa'ee Keenya", navHistory: "Seenaa", navAcademics: "Barnoota", navGallery: "Suuraalee", navPortal: "Paartalii",
+                welcomeTitle: "Baga Nagaan Dhuftan",
+                welcomeDesc: "Qulqullina barnootaa kennuun dhaloota boruu ni horanna.",
+                btnGoToPortal: "Paartalii Barataa Seensisaa",
+                card1Title: "Barnoota Qulqulluu", card1Desc: "Karoora barnootaa yuunivarsiitiif qopheessu.",
+                card2Title: "Barsiisota Ogummaa Qaban", card2Desc: "Barsiisota milkaa'ina barattootaaf dhama'an.",
+                card3Title: "Bu'uuraalee Ammayyaa", card3Desc: "Labsii saayinsii fi mana kitaabaa guutuu.",
+                aboutTitle: "Waa'ee Mana Barumsaa Keenyaa", aboutP1: "Manni barumsaa keenya magaalaa Kormisee keessatti argama.",
+                aboutP2: "Kaayyoon keenya naannoo barachuuf mijataa ta'e uumuu dha.",
+                visionTitle: "Mul'ata Keenya", visionDesc: '"Wiirtuu caalmaya barnootaa ta\'uu."',
+                historyTitle: "Seenaa Mana Barumsaa", historyP1: "Waggoota hedduu dura kan hundeeffame...",
+                historyP2: "Hayyoota hedduu horateera.", academicsTitle: "Sagantaalee Barnootaa",
+                galleryTitle: "Kuusaa Suuraalee", loginTitle: "Seensa Paartalii Barataa", loginSub: "Koodii keessan galchaa.",
+                studentId: "ID Barataa", password: "Jecha Darbiifannaa", loginError: "ID ykn Jechi Darbiifannaa dogoggora!", btnLogin: "Seensa",
+                dashboardTitle: "Daashboardii Barataa", welcomeUser: "Baga nagaan dhuftan,", btnLogout: "Ba'ii",
+                thSubject: "Gosa Barnootaa", thMidterm: "Midir-teermi (40%)", thFinal: "Faayinaali (60%)", thTotal: "Walii Gala (100%)", thStatus: "Haala",
+                footerText: "© 2026 Mana Barumsaa Kormisee. Mirgi Qopheessaa Hunduu Eegamaadha.", adminTitle: "Paartalii Bulchiinsaa",
+                addGradeTitle: "Galmee Qabxii Barataa", btnSubmitGrade: "Qabxii Galchi",
+                adminRegTitle: "Barataa Haaraa Galmeessi", regFirstName: "Maqaa", regLastName: "Maqaa Abbaa",
+                btnRegisterStudent: "Barataa Galmeessi", chatTitle: "Tajaajila Maamiltootaa (Customer Service)",
+                chatWelcome: "Nagaan dhuftan! Ani Tajaajila Maamiltootaa Mana Barumsaa Kormisee ti. Maal irratti si gargaaruu?",
+                adminAuthTitle: "Seensa Bulchiinsaa", adminAuthSub: "Jecha darbiifannaa bulchiinsaa galchaa.", adminError: "Jechi darbiifannaa dogoggora!",
+                trackLevel: "Sadarkaa Kutaa", track910: "Kutaa 9-10 (Gama Waliigalaa)", track1112Nat: "Kutaa 11-12 (Saayinsii Uumamaa)", track1112Soc: "Kutaa 11-12 (Saayinsii Hawaasaa)",
+                subEnglish: "Ingiliffaa", subMathematics: "Herrega", subPhysics: "Fiziksii", subChemistry: "Keemistirii", subBiology: "Baayoloojii",
+                subGeography: "Geograafii", subHistory: "Seenaa", subCitizenshipEducationCivics: "Barnoota Lammummaa",
+                subEconomics: "Diinagdee", subInformationTechnologyIT: "Teeknolojii Odeeffannoo (IT)", subHealthandPhysicalEducationHPE: "Barnoota Fayyaa fi Qaamaa",
+                subMotherTongueAmharic: "Afaan Dhalootaa / Amharic", subAgriculture: "Qonna",
+                adminStudentListTitle: "Barattoota Galmaa'an", thName: "Maqaa", thId: "ID Barataa", thPassword: "Jecha Darbiifannaa", thGradesStatus: "Haala",
+                statusGraded: "Qabxiin Guutameera", statusNoGrades: "Qabxiin Hin Jiru", semesterLabel: "Semisteera", btnFetch: "Fiduu (Fetch)", thMidMax: "Mid (40)", thFinMax: "Fin (60)",
+                sem1: "Semisteera 1", sem2: "Semisteera 2",
+                pass: "Darbe", fail: "Kufe"
+            }
+        };
+
+        const $ = (id) => document.getElementById(id);
+        const subKey = (name) => "sub" + String(name).replace(/[^a-zA-Z]/g, '');
+        const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+        // IMPORTANT: this function ONLY translates text. It never re-renders
+        // tables, so it can never call itself in a loop.
+        function changeLanguage() {
+            const lang = $('lang-switcher').value;
+            const t = translations[lang] || translations.en;
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const k = el.getAttribute('data-key');
+                if (t[k] !== undefined) el.textContent = t[k];
+            });
+        }
+        window.changeLanguage = changeLanguage;
+
+        /* =====================================================
+           3. NAVIGATION & HELPERS
+           ===================================================== */
+        const sections = ['home-container','about-container','history-container','academics-container','gallery-container','portal-container','admin-login-container','admin-container'];
+        const flexSections = ['portal-container','admin-container','admin-login-container'];
+
+        window.showSection = function (sectionId) {
+            sections.forEach(id => {
+                const el = $(id);
+                if (el) { el.classList.add('hidden'); el.classList.remove('flex'); }
+            });
+            const target = $(sectionId);
+            if (target) {
+                target.classList.remove('hidden');
+                if (flexSections.includes(sectionId)) target.classList.add('flex');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        const msgTimers = {};
+        function showMessage(elementId, msg, isError) {
+            const el = $(elementId);
+            if (!el) return;
+            el.textContent = msg;
+            el.className = 'text-sm mt-2 font-medium p-2 rounded block ' + (isError ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600');
+            clearTimeout(msgTimers[elementId]);
+            msgTimers[elementId] = setTimeout(() => { el.className = 'hidden text-sm mt-2 font-medium p-2 rounded'; }, 4000);
+        }
+
+        // Labels for the new "Action" column / reset button
+        Object.assign(translations.en, { thAction: "Action", btnResetPw: "Reset password" });
+        Object.assign(translations.am, { thAction: "እርምጃ", btnResetPw: "የይለፍ ቃል ቀይር" });
+        Object.assign(translations.om, { thAction: "Tarkaanfii", btnResetPw: "Jecha darbiifannaa haaromsi" });
+
+        /* =====================================================
+           4. STUDENT PORTAL
+           ===================================================== */
+        let currentSid = null;
+        let studentGrades = { "1": [], "2": [] };
+
+        function renderStudentGrades() {
+            const tbody = $('grades-tbody');
+            tbody.innerHTML = '';
+            const sem = $('student-semester').value;
+            const grades = studentGrades[sem] || [];
+            const t = translations[$('lang-switcher').value] || translations.en;
+
+            if (!grades.length) {
+                tbody.innerHTML = '<tr><td colspan="5" class="py-4 text-center text-gray-500 italic">No grades recorded for this semester.</td></tr>';
+                return;
+            }
+            grades.forEach(g => {
+                const total = (Number(g.midterm) || 0) + (Number(g.final) || 0);
+                const passed = total >= 50;
+                const cls = passed ? 'text-green-600 bg-green-100' : 'text-red-600 bg-red-100';
+                const k = subKey(g.subject);
+                tbody.insertAdjacentHTML('beforeend', `
+                    <tr class="border-b border-gray-100 hover:bg-gray-50">
+                        <td class="py-3 px-4 font-medium">${esc(t[k] || g.subject)}</td>
+                        <td class="py-3 px-4">${esc(g.midterm)} / 40</td>
+                        <td class="py-3 px-4">${esc(g.final)} / 60</td>
+                        <td class="py-3 px-4 font-bold text-blue-900">${total} / 100</td>
+                        <td class="py-3 px-4"><span class="px-2 py-1 rounded text-xs font-bold ${cls}">${passed ? t.pass : t.fail}</span></td>
+                    </tr>`);
+            });
+        }
+
+        function logoutStudent() {
+            currentSid = null;
+            studentToken = null;
+            studentGrades = { "1": [], "2": [] };
+            $('student-id').value = '';
+            $('password').value = '';
+            $('dashboard-section').classList.add('hidden');
+            $('login-section').classList.remove('hidden');
+        }
+
+        $('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const sid = $('student-id').value.toUpperCase().trim();
+            const pass = $('password').value.trim();
+            try {
+                const data = await api('/api/student/login', { method: 'POST', body: { studentId: sid, password: pass } });
+                studentToken = data.token;
+                currentSid = data.student.id;
+                studentGrades = data.grades || { "1": [], "2": [] };
+                $('error-msg').classList.add('hidden');
+                $('login-section').classList.add('hidden');
+                $('display-id').textContent = data.student.id;
+                $('display-name').textContent = data.student.name;
+                renderStudentGrades();
+                $('dashboard-section').classList.remove('hidden');
+            } catch (err) {
+                if (err.status === 401) $('error-msg').classList.remove('hidden');
+                else showMessage('portal-msg-box', err.message, true);
+            }
+        });
+
+        $('student-semester').addEventListener('change', async () => {
+            try {
+                const data = await api('/api/student/grades', { token: studentToken });   // always the latest saved grades
+                studentGrades = data.grades || { "1": [], "2": [] };
+            } catch (err) {
+                if (err.status === 401) { logoutStudent(); return; }
+                showMessage('portal-msg-box', err.message, true);
+            }
+            renderStudentGrades();
+        });
+
+        $('btn-logout').addEventListener('click', logoutStudent);
+
+        /* =====================================================
+           5. ADMIN
+           ===================================================== */
+        let students = [];   // [{ id, name, gradeCount }] - passwords are never sent to the browser
+
+        async function refreshAdminStudentList() {
+            try {
+                students = await adminApi('/api/admin/students');
+                renderAdminStudentList();
+            } catch (err) {
+                showMessage('list-msg-box', err.message, true);
+            }
+        }
+
+        $('admin-login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                const data = await api('/api/admin/login', { method: 'POST', body: { password: $('admin-password').value } });
+                adminToken = data.token;
+                $('admin-error-msg').classList.add('hidden');
+                $('admin-password').value = '';
+                showSection('admin-container');
+                updateBulkSubjects();
+                await refreshAdminStudentList();
+            } catch (err) {
+                if (err.status === 401) $('admin-error-msg').classList.remove('hidden');
+                else showMessage('admin-login-msg-box', err.message, true);
+            }
+        });
+
+        window.logoutAdmin = function () {
+            adminToken = null;
+            students = [];
+            renderAdminStudentList();
+            showSection('admin-login-container');
+        };
+
+        $('btn-generate-id').addEventListener('click', async () => {
+            try {
+                const c = await adminApi('/api/admin/generate-credentials');
+                $('reg-id').value = c.studentId;
+                $('reg-password').value = c.password;
+            } catch (err) {
+                showMessage('reg-msg-box', err.message, true);
+            }
+        });
+
+        $('register-student-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const sid = $('reg-id').value.trim();
+            const pw = $('reg-password').value;
+            if (!sid) { showMessage('reg-msg-box', 'Generate ID first!', true); return; }
+            try {
+                await adminApi('/api/admin/students', {
+                    method: 'POST',
+                    body: { studentId: sid, password: pw, firstName: $('reg-fname').value.trim(), lastName: $('reg-lname').value.trim() }
+                });
+                $('register-student-form').reset();
+                $('reg-id').value = '';
+                $('reg-password').value = '';
+                await refreshAdminStudentList();
+                // The password is stored hashed, so this is the only time it can be seen.
+                showMessage('reg-msg-box', 'Student registered and saved to the database! ID: ' + sid + '  |  Password: ' + pw + '  (write it down - it is not shown again)');
+                clearTimeout(msgTimers['reg-msg-box']);
+            } catch (err) {
+                showMessage('reg-msg-box', err.status === 409 ? 'This ID already exists. Generate a new one.' : err.message, true);
+            }
+        });
+
+        const subjectsData = {
+            "9-10": ["English","Mathematics","Physics","Chemistry","Biology","Geography","History","Citizenship Education (Civics)","Economics","Information Technology (IT)","Health and Physical Education (HPE)","Mother Tongue / Amharic"],
+            "11-12-nat": ["English","Mathematics","Physics","Chemistry","Biology","Information Technology (IT)","Agriculture"],
+            "11-12-soc": ["English","Mathematics","Geography","History","Economics","Information Technology (IT)"]
+        };
+
+        function updateBulkSubjects() {
+            const track = $('admin-track').value;
+            const tbody = $('bulk-subjects-body');
+            const t = translations[$('lang-switcher').value] || translations.en;
+            tbody.innerHTML = '';
+            subjectsData[track].forEach(sub => {
+                const k = subKey(sub);
+                tbody.insertAdjacentHTML('beforeend', `
+                    <tr class="border-b border-gray-100 hover:bg-gray-50">
+                        <td class="py-2 px-2 text-gray-700 font-medium text-xs">${esc(t[k] || sub)}</td>
+                        <td class="py-2 px-2"><input type="number" name="midterm_${k}" min="0" max="40" class="w-full px-2 py-1 border border-gray-300 rounded text-sm" required value="0"></td>
+                        <td class="py-2 px-2"><input type="number" name="final_${k}" min="0" max="60" class="w-full px-2 py-1 border border-gray-300 rounded text-sm" required value="0"></td>
+                    </tr>`);
+            });
+        }
+        window.updateBulkSubjects = updateBulkSubjects;
+
+        $('btn-fetch-grades').addEventListener('click', async () => {
+            const sid = $('admin-student-id').value.toUpperCase().trim();
+            const sem = $('admin-semester').value;
+            try {
+                const data = await adminApi('/api/admin/students/' + encodeURIComponent(sid) + '/grades/' + sem);
+                updateBulkSubjects();
+                const existing = data.grades || [];
+                if (existing.length) {
+                    existing.forEach(g => {
+                        const k = subKey(g.subject);
+                        const m = document.querySelector(`input[name="midterm_${k}"]`);
+                        const f = document.querySelector(`input[name="final_${k}"]`);
+                        if (m) m.value = g.midterm;
+                        if (f) f.value = g.final;
+                    });
+                    showMessage('grade-msg-box', 'Fetched existing grades for editing!');
+                } else {
+                    showMessage('grade-msg-box', 'No grades recorded for this semester yet. Enter new scores.');
+                }
+            } catch (err) {
+                showMessage('grade-msg-box', err.status === 404 ? 'Student ID not found in database!' : err.message, true);
+            }
+        });
+
+        $('add-grade-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const sid = $('admin-student-id').value.toUpperCase().trim();
+            const sem = $('admin-semester').value;
+            const track = $('admin-track').value;
+
+            const list = subjectsData[track].map(sub => {
+                const k = subKey(sub);
+                const m = document.querySelector(`input[name="midterm_${k}"]`);
+                const f = document.querySelector(`input[name="final_${k}"]`);
+                const mid = Math.min(40, Math.max(0, parseInt(m && m.value, 10) || 0));
+                const fin = Math.min(60, Math.max(0, parseInt(f && f.value, 10) || 0));
+                return { subject: sub, midterm: mid, final: fin };
+            });
+
+            try {
+                await adminApi('/api/admin/students/' + encodeURIComponent(sid) + '/grades/' + sem, { method: 'PUT', body: { grades: list } });
+                await refreshAdminStudentList();
+                showMessage('grade-msg-box', 'Grades saved permanently!');
+                $('add-grade-form').reset();
+                updateBulkSubjects();
+            } catch (err) {
+                showMessage('grade-msg-box', err.status === 404 ? 'Student ID not registered!' : err.message, true);
+            }
+        });
+
+        // Pure renderer: reads state, writes the table. Calls nothing else.
+        function renderAdminStudentList() {
+            const tbody = $('admin-student-list-body');
+            if (!tbody) return;
+            const t = translations[$('lang-switcher').value] || translations.en;
+            tbody.innerHTML = '';
+            students.forEach(d => {
+                const count = Number(d.gradeCount) || 0;
+                const has = count > 0;
+                const cls = has ? 'text-green-600 bg-green-100' : 'text-red-600 bg-red-100';
+                tbody.insertAdjacentHTML('beforeend', `
+                    <tr class="border-b border-gray-100 hover:bg-gray-50">
+                        <td class="py-2 px-4">${esc(d.name || 'N/A')}</td>
+                        <td class="py-2 px-4 font-bold text-blue-600">${esc(d.id)}</td>
+                        <td class="py-2 px-4 font-mono text-gray-400">••••••</td>
+                        <td class="py-2 px-4"><span class="px-2 py-1 rounded text-xs font-bold ${cls}">${has ? t.statusGraded : t.statusNoGrades}</span> (${count} entries)</td>
+                        <td class="py-2 px-4"><button type="button" data-reset="${esc(d.id)}" class="bg-yellow-100 text-yellow-800 hover:bg-yellow-200 px-3 py-1 rounded text-xs font-bold transition">${esc(t.btnResetPw)}</button></td>
+                    </tr>`);
+            });
+        }
+
+        // Reset a forgotten password (a new one is generated and shown once)
+        $('admin-student-list-body').addEventListener('click', async (e) => {
+            const btn = e.target.closest('[data-reset]');
+            if (!btn) return;
+            const id = btn.getAttribute('data-reset');
+            if (!confirm('Reset the password of ' + id + '? A new password will be generated.')) return;
+            try {
+                const r = await adminApi('/api/admin/students/' + encodeURIComponent(id) + '/reset-password', { method: 'POST' });
+                showMessage('list-msg-box', 'New password for ' + id + ': ' + r.password + '  (shown only once - give it to the student)');
+                clearTimeout(msgTimers['list-msg-box']);
+            } catch (err) {
+                showMessage('list-msg-box', err.message, true);
+            }
+        });
+
+        // Re-render dynamic tables after a language switch (outside changeLanguage itself)
+        $('lang-switcher').addEventListener('change', () => {
+            renderAdminStudentList();
+            updateBulkSubjects();
+            if (currentSid) renderStudentGrades();
+        });
+
+        /* ---------- Backup / Restore (server database <-> JSON file) ---------- */
+        $('btn-export').addEventListener('click', async () => {
+            try {
+                const data = await adminApi('/api/admin/backup');
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'kemissie_students_backup_' + new Date().toISOString().slice(0, 10) + '.json';
+                document.body.appendChild(a); a.click(); a.remove();
+                setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+                showMessage('backup-msg-box', 'Backup downloaded.');
+            } catch (err) {
+                showMessage('backup-msg-box', err.message, true);
+            }
+        });
+
+        $('btn-import').addEventListener('click', () => $('import-file').click());
+        $('import-file').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = async () => {
+                try {
+                    const data = JSON.parse(reader.result);
+                    if (!data || typeof data !== 'object' || Array.isArray(data)) throw new Error('bad format');
+                    const r = await adminApi('/api/admin/restore', { method: 'POST', body: data });
+                    await refreshAdminStudentList();
+                    showMessage('backup-msg-box', 'Backup imported: ' + r.merged + ' student(s) merged.');
+                } catch (err) {
+                    const bad = err instanceof SyntaxError || err.message === 'bad format' || err.status === 400;
+                    showMessage('backup-msg-box', bad ? 'Invalid backup file.' : err.message, true);
+                }
+                $('import-file').value = '';
+            };
+            reader.readAsText(file);
+        });
+
+        /* =====================================================
+           6. CHAT WIDGET
+           ===================================================== */
+        const chatWidget = $('chat-widget');
+        function toggleChat() {
+            if (chatWidget.classList.contains('hidden')) {
+                chatWidget.classList.remove('hidden');
+                chatWidget.classList.add('flex');
+                setTimeout(() => chatWidget.classList.add('show'), 10);
+                $('chat-toggle').style.transform = 'scale(0)';
+            } else {
+                chatWidget.classList.remove('show');
+                setTimeout(() => { chatWidget.classList.add('hidden'); chatWidget.classList.remove('flex'); }, 300);
+                $('chat-toggle').style.transform = 'scale(1)';
+            }
+        }
+        $('chat-toggle').addEventListener('click', toggleChat);
+        $('close-chat').addEventListener('click', toggleChat);
+
+        function appendMessage(text, isUser) {
+            const div = document.createElement('div');
+            div.className = (isUser ? 'chat-bubble-user' : 'chat-bubble-ai') + ' text-sm shadow-sm';
+            div.textContent = text;
+            const box = $('chat-messages');
+            box.appendChild(div);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function handleSend() {
+            const input = $('chat-input');
+            const text = input.value.trim();
+            if (!text) return;
+            appendMessage(text, true);
+            input.value = '';
+
+            const loading = document.createElement('div');
+            loading.className = 'chat-bubble-ai text-sm shadow-sm opacity-70';
+            loading.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Typing...';
+            $('chat-messages').appendChild(loading);
+
+            setTimeout(() => {
+                loading.remove();
+                let reply = "እባክዎትን ጥያቄዎትን በግልጽ ይጠይቁ። (Please clarify your question.)";
+                const q = text.toLowerCase();
+                if (q.includes("password") || q.includes("ፓስወርድ") || q.includes("ረሳሁ") || q.includes("jecha darbiifannaa")) {
+                    reply = "የይለፍ ቃልዎን (Password) ከረሱ፣ እባክዎ በአካል የትምህርት ቤቱን አስተዳደር ቢሮ (Admin) ያነጋግሩ። አዲስ መታወቂያ እና የይለፍ ቃል ይሰጥዎታል። (If you forgot your password, please visit the admin office.)";
+                } else if (q.includes("hello") || q.includes("ሰላም") || q.includes("አሰላሙአለይኩም") || q.includes("nagaan")) {
+                    reply = "ሰላም! የከሚሴ ትምህርት ቤት የደንበኞች አገልግሎት (Customer Service) ነኝ። በምን ልርዳዎት? (Hello! How can I assist you today?)";
+                } else if (q.includes("register") || q.includes("መመዝገብ") || q.includes("galmaa'uu")) {
+                    reply = "አዲስ ተማሪ ለመመዝገብ የትምህርት ቤቱን ምዝገባ ማዕከል በአካል በመገኘት ማመልከት ይቻላል። (To register, please visit the school admission office.)";
+                } else if (q.includes("result") || q.includes("ውጤት") || q.includes("qabxii")) {
+                    reply = "ውጤትዎን ለማየት ከላይ 'Portal' የሚለውን በመንካት የራሳትን Student ID እና Password በማስገባት መመልከት ይችላሉ።";
+                }
+                appendMessage(reply, false);
+            }, 800);
+        }
+        $('send-chat').addEventListener('click', handleSend);
+        $('chat-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
+
+        /* =====================================================
+           7. INIT
+           ===================================================== */
+        changeLanguage();
+        renderAdminStudentList();
+    })();
+    </script>
+</body>
+</html>
